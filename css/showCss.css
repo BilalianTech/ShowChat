@@ -1,0 +1,29 @@
+.chatContainer
+{
+    width: 415px;
+    border: 1px solid;
+    padding: 10px;    
+}
+
+.wsConnectBtn, .chatBtn
+{
+    float: right;
+}
+
+.lastBtn
+{
+    margin-left: 10px;
+}
+
+.incomingMsg
+{
+    margin-bottom: 10px; 
+    margin-top: 10px; 
+}
+
+.outMsg
+{
+    width: 335px;
+}
+
+
