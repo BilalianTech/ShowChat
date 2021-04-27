@@ -9,6 +9,21 @@ jQuery.noConflict();
         { 
             var cMessageTxt = "";
             var outMsgTxt = "";
+            var cMsgObj = JSON.stringify({"action":"connect","msgStr":"Bilal"});
+
+            var chatSocket = new WebSocket('wss://hdwvgbrzvg.execute-api.us-east-1.amazonaws.com/dev/');
+
+            // Connection opened
+            chatSocket.addEventListener('open', function (event) 
+            {
+                chatSocket.send(cMsgObj);
+            });
+
+            // Listen for messages
+            chatSocket.addEventListener('message', function (event) 
+            {
+                console.log('Message from server ', event.data);
+            });
 
             //=================================================================
             $("#exitBtn").click(function(){ exitRoom(); });            
@@ -24,7 +39,11 @@ jQuery.noConflict();
            
             //=================================================================
             function connectToRoom()
-            {                
+            {    
+                
+                
+
+
                 cMessageTxt = cMessageTxt + "Enter Room \n";
                 $("#incomingMsg_Txt").val(cMessageTxt);
             }
