@@ -7,12 +7,20 @@ jQuery.noConflict();
         //#####################################################################
         $(document).ready(function()
         { 
-            var cMessageTxt = "";
-            var outMsgTxt = "";
-            var cMsgObj = JSON.stringify({"action":"connect","msgStr":"Bilal"});
-
             var chatSocket = new WebSocket('wss://hdwvgbrzvg.execute-api.us-east-1.amazonaws.com/dev/');
 
+            var cMessageTxt = "";
+            var outMsgTxt = "";
+            var cMsgObj =   JSON.stringify({
+                            
+                                "action":"userMsg",                                
+                                "userName": "Bilal",
+                                "msgStr": "Send This Back!"                                
+                                
+            });
+           
+            
+            
             // Connection opened
             chatSocket.addEventListener('open', function (event) 
             {
@@ -22,7 +30,7 @@ jQuery.noConflict();
             // Listen for messages
             chatSocket.addEventListener('message', function (event) 
             {
-                console.log('Message from server ', event.data);
+                console.log('Server: ', event.data);
             });
 
             //=================================================================
@@ -39,11 +47,8 @@ jQuery.noConflict();
            
             //=================================================================
             function connectToRoom()
-            {    
-                
-                
-
-
+            {  
+                console.log(cMsgObj);
                 cMessageTxt = cMessageTxt + "Enter Room \n";
                 $("#incomingMsg_Txt").val(cMessageTxt);
             }
