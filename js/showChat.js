@@ -10,7 +10,7 @@ jQuery.noConflict();
             var chatSocket = new WebSocket('wss://hdwvgbrzvg.execute-api.us-east-1.amazonaws.com/dev/');
             var cMessageTxt = "";
             var outMsgTxt = "";
-            var cMsgObj = JSON.stringify({ "action":"userMsg","userName": "Bilal","msgStr": "Send This Back! 2"});            
+            var cMsgObj = ""; //JSON.stringify({ "action":"userMsg","userName": "Bilal","msgStr": "Send This Back! 2"});            
             
             // Connection opened
             chatSocket.addEventListener('open', function (event) 
@@ -23,12 +23,10 @@ jQuery.noConflict();
             chatSocket.addEventListener('message', function (event) 
             {
                 var dataObj = JSON.parse(event.data);
-                //console.log('Server: ', dataObj.event.requestContext.routeKey);
+                cMessageTxt = cMessageTxt + dataObj.message + "\n";
+                $("#incomingMsg_Txt").val(cMessageTxt);
 
-                cMessageTxt = cMessageTxt + dataObj + "\n";
-                $("#incomingMsg_Txt").val(cMessageTxt); 
-
-                console.log('Server: ', dataObj);
+                console.log('Server: ', dataObj.message);
             });
 
             //=================================================================
