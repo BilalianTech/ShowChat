@@ -8,29 +8,27 @@ jQuery.noConflict();
         $(document).ready(function()
         { 
             var chatSocket = new WebSocket('wss://hdwvgbrzvg.execute-api.us-east-1.amazonaws.com/dev/');
-
             var cMessageTxt = "";
             var outMsgTxt = "";
-            var cMsgObj =   JSON.stringify({
-                            
-                                "action":"userMsg",                                
-                                "userName": "Bilal",
-                                "msgStr": "Send This Back!"                                
-                                
-            });
-           
-            
+            var cMsgObj = JSON.stringify({ "action":"userMsg","userName": "Bilal","msgStr": "Send This Back! 2"});            
             
             // Connection opened
             chatSocket.addEventListener('open', function (event) 
             {
-                chatSocket.send(cMsgObj);
+                cMessageTxt = cMessageTxt + "Socket Opened!\n";
+                $("#incomingMsg_Txt").val(cMessageTxt);               
             });
 
             // Listen for messages
             chatSocket.addEventListener('message', function (event) 
             {
-                console.log('Server: ', event.data);
+                var dataObj = JSON.parse(event.data);
+                //console.log('Server: ', dataObj.event.requestContext.routeKey);
+
+                cMessageTxt = cMessageTxt + dataObj + "\n";
+                $("#incomingMsg_Txt").val(cMessageTxt); 
+
+                console.log('Server: ', dataObj);
             });
 
             //=================================================================
@@ -56,9 +54,9 @@ jQuery.noConflict();
             //=================================================================
             function sendMsg()
             {
-                outMsgTxt = $("#outMsg_Txt").val()  + "\n";
-                cMessageTxt = cMessageTxt + outMsgTxt;
-                $("#incomingMsg_Txt").val(cMessageTxt);
+                outMsgTxt = $("#outMsg_Txt").val();
+                cMsgObj = JSON.stringify({ "action":"userMsg", "msgStr":outMsgTxt });
+                chatSocket.send(cMsgObj);                
                 $("#outMsg_Txt").val("");
             }
 
