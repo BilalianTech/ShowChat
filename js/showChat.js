@@ -22,11 +22,14 @@ jQuery.noConflict();
             // Listen for messages
             chatSocket.addEventListener('message', function (event) 
             {
-                var dataObj = JSON.parse(event.data);
-                cMessageTxt = cMessageTxt + dataObj.message + "\n";
-                $("#incomingMsg_Txt").val(cMessageTxt);
-
-                console.log('Server: ', dataObj.message);
+                if(event.data.length > 1)
+                {
+                    var dataObj = JSON.parse(event.data);
+                    cMessageTxt = cMessageTxt + dataObj.message + "\n";
+                    $("#incomingMsg_Txt").val(cMessageTxt);    
+                    console.log('Server: ', dataObj.message);
+                }
+                
             });
 
             //=================================================================
