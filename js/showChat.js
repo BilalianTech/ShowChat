@@ -10,7 +10,7 @@ jQuery.noConflict();
             var chatSocket = new WebSocket('wss://hdwvgbrzvg.execute-api.us-east-1.amazonaws.com/dev/');
             var cMessageTxt = "";
             var outMsgTxt = "";
-            var cMsgObj = ""; //JSON.stringify({ "action":"userMsg","userName": "Bilal","msgStr": "Send This Back! 2"});            
+            var cMsgObj = ""; 
             
             // Connection opened
             chatSocket.addEventListener('open', function (event) 
